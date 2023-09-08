@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>magic.data.common</name>
+    </assembly>
+    <members>
+        <member name="T:magic.data.common.builders.SqlBuilder">
+            <summary>
+            Common base class for SQL generators, allowing you to generate SQL from a lambda object.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.builders.SqlBuilder.#ctor(magic.node.Node,System.String,System.DateTimeKind)">
+            <summary>
+            Creates a new SQL builder.
+            </summary>
+            <param name="node">Root node to generate your SQL from.</param>
+            <param name="escapeChar">Escape character to use for escaping table names etc.</param>
+            <param name="kind">Kind of date to convert date to if date is specified in another kind</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlBuilder.Build">
+            <summary>
+            Builds your SQL statement, and returns a structured SQL statement, plus any parameters.
+            </summary>
+            <returns>Node containing SQL as root node, and parameters as children.</returns>
+        </member>
+        <member name="P:magic.data.common.builders.SqlBuilder.IsGenerateOnly">
+            <summary>
+            Signals to inherited class if this is a pure generate job, or if it should also evaluate the SQL command.
+            </summary>
+        </member>
+        <member name="P:magic.data.common.builders.SqlBuilder.EscapeChar">
+            <summary>
+            Returns the escape character, which is typically " or ` character
+            </summary>
+        </member>
+        <member name="P:magic.data.common.builders.SqlBuilder.Kind">
+            <summary>
+            Returns the escape character, which is typically " or ` character
+            </summary>
+        </member>
+        <member name="M:magic.data.common.builders.SqlBuilder.Parse(magic.data.common.builders.SqlBuilder)">
+            <summary>
+            Generic helper method to use an existing SQL builder and return it to caller as an executable SQL.
+            </summary>
+            <param name="builder">Actual builder to use.</param>
+            <returns>If execution of node should be done, the method will return the node to execute,
+            otherwise null will be returned, and the builder's root node will contain SQL and arguments
+            as children.</returns>
+        </member>
+        <member name="P:magic.data.common.builders.SqlBuilder.Root">
+            <summary>
+            Root node from which the SQL generator is being evaluated towards.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.builders.SqlBuilder.AppendTableName(System.Text.StringBuilder)">
+            <summary>
+            Securely adds the table name into the specified builder.
+            </summary>
+            <param name="builder">StringBuilder to append the table name into.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlBuilder.EscapeColumnName(System.String)">
+            <summary>
+            Escapes a column name, and returns to caller.
+            </summary>
+            <param name="column">Name of column as supplied by lambda object.</param>
+            <returns>The escaped column's name.</returns>
+        </member>
+        <member name="M:magic.data.common.builders.SqlBuilder.EscapeTypeName(System.String)">
+            <summary>
+            Escapes a single table or column name, and appends to builder.
+            </summary>
+            <param name="typeName">Actual typename.</param>
+            <returns>The escaped typename.</returns>
+        </member>
+        <member name="T:magic.data.common.builders.SqlCreateBuilder">
+            <summary>
+            Specialised insert SQL builder, to create an insert SQL statement by semantically traversing an input node.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.builders.SqlCreateBuilder.#ctor(magic.node.Node,System.String,System.DateTimeKind)">
+            <summary>
+            Creates an insert SQL statement
+            </summary>
+            <param name="node">Root node to generate your SQL from.</param>
+            <param name="escapeChar">Escape character to use for escaping table names etc.</param>
+            <param name="kind">Kind of date to convert date to if date is specified in another kind</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlCreateBuilder.Build">
+            <summary>
+            Builds your insert SQL statement, and returns a structured SQL statement, plus any parameters.
+            </summary>
+            <returns>Node containing insert SQL as root node, and parameters as children.</returns>
+        </member>
+        <member name="M:magic.data.common.builders.SqlCreateBuilder.AppendValues(System.Text.StringBuilder,magic.node.Node)">
+            <summary>
+            Adds the 'values' parts of your SQL to the specified string builder.
+            </summary>
+            <param name="builder">String builder to put the results into.</param>
+            <param name="args">Current input node from where to start looking for semantic values parts.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlCreateBuilder.AppendInBetween(System.Text.StringBuilder)">
+            <summary>
+            Adds "in between" parts to your SQL, which might include specialized SQL text,
+            depending upon your adapter.
+            Default implementation does nothing.
+            </summary>
+            <param name="builder">Where to put the resulting in between parts.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlCreateBuilder.AppendTail(System.Text.StringBuilder)">
+            <summary>
+            Appends the tail for your SQL statement, which by default is none.
+            This is useful for situations where you'll need to for instance explicitly
+            return the ID of a newly created item.
+            </summary>
+            <param name="builder">Where to put your tail.</param>
+        </member>
+        <member name="T:magic.data.common.builders.SqlDeleteBuilder">
+            <summary>
+            Specialised delete SQL builder, to create a delete SQL statement by
+            semantically traversing an input node.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.builders.SqlDeleteBuilder.#ctor(magic.node.Node,System.String,System.DateTimeKind)">
+            <summary>
+            Creates a delete SQL statement
+            </summary>
+            <param name="node">Root node to generate your SQL from.</param>
+            <param name="escapeChar">Escape character to use for escaping table names etc.</param>
+            <param name="kind">Kind of date to convert date to if date is specified in another kind</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlDeleteBuilder.Build">
+            <summary>
+            Builds your delete SQL statement, and returns a structured SQL statement, plus any parameters.
+            </summary>
+            <returns>Node containing insert SQL as root node, and parameters as children.</returns>
+        </member>
+        <member name="T:magic.data.common.builders.SqlReadBuilder">
+            <summary>
+            Specialised select SQL builder, to create a select SQL statement by semantically traversing an input node.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.builders.SqlReadBuilder.#ctor(magic.node.Node,System.String,System.DateTimeKind)">
+            <summary>
+            Creates a select SQL statement
+            </summary>
+            <param name="node">Root node to generate your SQL from.</param>
+            <param name="escapeChar">Escape character to use for escaping table names etc.</param>
+            <param name="kind">Kind of date to convert date to if date is specified in another kind</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlReadBuilder.Build">
+            <summary>
+            Builds your select SQL statement, and returns a structured SQL statement, plus any parameters.
+            </summary>
+            <returns>Node containing insert SQL as root node, and parameters as children.</returns>
+        </member>
+        <member name="M:magic.data.common.builders.SqlReadBuilder.AppendTableName(System.Text.StringBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:magic.data.common.builders.SqlReadBuilder.AppendTail(System.Text.StringBuilder)">
+            <summary>
+            Adds limit and offset parts to your SQL if requested by caller.
+            </summary>
+            <param name="builder">Where to put the resulting SQL into.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlReadBuilder.AppendOrderBy(System.Text.StringBuilder)">
+            <summary>
+            Appends the order by clause into builder.
+            </summary>
+            <param name="builder">Builder where clause should be appended.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlReadBuilder.AppendDefaultOrderBy(System.Text.StringBuilder)">
+            <summary>
+            Adds the default order by clause for queries, in cases where no explicit
+            order by was added. Some databse vendors, such as MS SQL requires this
+            given some specific conditions.
+            </summary>
+            <param name="builder">Where to put the default order by clause.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlReadBuilder.AppendGroupBy(System.Text.StringBuilder)">
+            <summary>
+            Appends any [group] (by) arguments, if given.
+            </summary>
+            <param name="builder">Where to render the SQL</param>
+        </member>
+        <member name="T:magic.data.common.builders.SqlUpdateBuilder">
+            <summary>
+            Specialised update SQL builder, to create a select SQL statement by semantically traversing an input node.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.builders.SqlUpdateBuilder.#ctor(magic.node.Node,System.String,System.DateTimeKind)">
+            <summary>
+            Creates an update SQL statement
+            </summary>
+            <param name="node">Root node to generate your SQL from.</param>
+            <param name="escapeChar">Escape character to use for escaping table names etc.</param>
+            <param name="kind">Kind of date to convert date to if date is specified in another kind</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlUpdateBuilder.Build">
+            <summary>
+            Builds your update SQL statement, and returns a structured SQL statement, plus any parameters.
+            </summary>
+            <returns>Node containing update SQL as root node, and parameters as children.</returns>
+        </member>
+        <member name="T:magic.data.common.builders.SqlWhereBuilder">
+            <summary>
+            Common base class for SQL generators requiring a where clause.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.builders.SqlWhereBuilder.#ctor(magic.node.Node,System.String,System.DateTimeKind)">
+            <summary>
+            Creates a new SQL builder.
+            </summary>
+            <param name="node">Root node to generate your SQL from.</param>
+            <param name="escapeChar">Escape character to use for escaping table names etc.</param>
+            <param name="kind">Kind of date to convert date to if date is specified in another kind</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlWhereBuilder.AddComparisonOperator(System.String,System.Action{System.Text.StringBuilder,magic.node.Node,magic.node.Node,System.String,System.DateTimeKind})">
+            <summary>
+            Adds a new comparison operator into the comparison operator resolver,
+            allowing you to use a custom comparison operator, resolving to some function,
+            responsible for injecting SQL into your resulting SQL somehow.
+            </summary>
+            <param name="key">Key for your operator.</param>
+            <param name="functor">Function to invoke once comparison operator is encountered.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlWhereBuilder.AppendArgs(magic.node.Node,magic.node.Node,System.Text.StringBuilder,System.String,System.DateTimeKind)">
+            <summary>
+            Appends arguments into builder if args is not null, and references argument
+            in SQL - Otherwise assuming we are to append the value of the colummn node
+            as the right hand side of the comparison, which might be true for joins
+            for instance.
+            </summary>
+            <param name="args">Arguments node, if this is null, no arguments will be appended into args node.</param>
+            <param name="colNode">Column node, containing actual comparison condition.</param>
+            <param name="builder">Where to append the resulting SQL.</param>
+            <param name="escapeChar">Escape character for table names.</param>
+            <param name="kind">Default DateTimeKind to apply unless explicitly given.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlWhereBuilder.AppendWhere(System.Text.StringBuilder,magic.node.Node)">
+            <summary>
+            Builds the 'where' parts of the SQL statement.
+            </summary>
+            <param name="builder">String builder to put the results into.</param>
+            <param name="args">Where to put arguments created during parsing.</param>
+        </member>
+        <member name="M:magic.data.common.builders.SqlWhereBuilder.AppendBooleanLevel(magic.node.Node,magic.node.Node,System.Text.StringBuilder)">
+            <summary>
+            Iterates through all children of specified node, and building one [or]/[and]
+            level for each of its children.
+            </summary>
+            <param name="args">Where to append arguments, if requested by caller. Notice,
+            the args node might be null in cases we are for instance invoking this method for
+            a [join] invocation.</param>
+            <param name="builder">Where to append SQL.</param>
+            <param name="conditionLevel">Where node for current level.</param>
+        </member>
+        <member name="T:magic.data.common.contracts.IDataSettings">
+            <summary>
+            Helper class to encapsulate settings for databases.
+            </summary>
+        </member>
+        <member name="P:magic.data.common.contracts.IDataSettings.DefaultDatabaseType">
+            <summary>
+            Returns the default database type the current installation is using.
+            </summary>
+            <value>Default database type.</value>
+        </member>
+        <member name="M:magic.data.common.contracts.IDataSettings.ConnectionString(System.String,System.String)">
+            <summary>
+            Returns the specified connection string.
+            </summary>
+            <param name="name">Name of connection string to return.</param>
+            <param name="databaseType">Database type to return connection string for. If null default database type will be used.</param>
+            <returns>Connection string.</returns>
+        </member>
+        <member name="T:magic.data.common.helpers.Converter">
+            <summary>
+            Helper class to convert values from database to lambda values.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.helpers.Converter.GetValue(System.Object)">
+            <summary>
+            Converts the given database value to the relevant native .Net type.
+            for instance, if given DBNull as type, it will return simply "null" value, etc.
+            </summary>
+            <param name="value">Database value.</param>
+            <returns>The value as the equivalent CLR type created from its DB type.</returns>
+        </member>
+        <member name="T:magic.data.common.helpers.DataSlotBase">
+            <summary>
+            Abstract base class for generic slots simply invoking specialized slot for database type.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.helpers.DataSlotBase.#ctor(System.String,magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates an instance of your type.
+            </summary>
+            <param name="slot">Last parts of the name of slot to signal.</param>
+            <param name="settings">Configuration object.</param>
+        </member>
+        <member name="M:magic.data.common.helpers.DataSlotBase.Signal(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Implementation of your slot.
+            </summary>
+            <param name="signaler">Signaler used to raise the signal.</param>
+            <param name="input">Arguments to your slot.</param>
+        </member>
+        <member name="M:magic.data.common.helpers.DataSlotBase.SignalAsync(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Implementation of your slot.
+            </summary>
+            <param name="signaler">Signaler used to raise the signal.</param>
+            <param name="input">Arguments to your slot.</param>
+            <returns>An awaitable task.</returns>
+        </member>
+        <member name="T:magic.data.common.helpers.Executor">
+            <summary>
+            Helper class for creating and parametrizing an SQL command of some type, and
+            also for traversing records, plus other smaller helper methods, being commonalities
+            between different database type implementations.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.helpers.Executor.Execute(magic.node.Node,System.Data.Common.DbConnection,magic.data.common.helpers.Transaction,System.Action{System.Data.Common.DbCommand,System.Int64})">
+            <summary>
+            Creates a new SQL command of some type, and parametrizes it with each
+            child node specified in the invocation node as a key/value DB parameter -
+            For then to invoke the specified functor lambda callback.
+            </summary>
+            <param name="input">Node containing SQL and parameters as children.</param>
+            <param name="connection">Database connection.</param>
+            <param name="transaction">Database transaction, or null if there are none.</param>
+            <param name="functor">Lambda function responsible for executing the command somehow.
+            This will be given the actual DbCommand object, in addition to a maximum number of columns
+            the lambda should return to caller.</param>
+        </member>
+        <member name="M:magic.data.common.helpers.Executor.ExecuteAsync(magic.node.Node,System.Data.Common.DbConnection,magic.data.common.helpers.Transaction,System.Func{System.Data.Common.DbCommand,System.Int64,System.Threading.Tasks.Task})">
+            <summary>
+            Creates a new SQL command of some type, and parametrizes it with each
+            child node specified in the invocation node as a key/value DB parameter -
+            For then to invoke the specified functor lambda callback.
+            </summary>
+            <param name="input">Node containing SQL and parameters as children.</param>
+            <param name="connection">Database connection.</param>
+            <param name="transaction">Database transaction, or null if there are none.</param>
+            <param name="functor">Lambda function responsible for executing the command somehow.
+            This will be given the actual DbCommand object, in addition to a maximum number of columns
+            the lambda should return to caller.</param>
+            <returns>An awaitable task.</returns>
+        </member>
+        <member name="M:magic.data.common.helpers.Executor.GetConnectionString(magic.node.Node,System.String,System.String,magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a connection string according to the arguments provided,
+            and returns to caller.
+            </summary>
+            <param name="input">Node containing value trying to connect to a database</param>
+            <param name="databaseType">Type of database adapter</param>
+            <param name="defaultCatalogue">The default catalogue to use if no explicit database was specified</param>
+            <param name="settings">Configuration object from where to retrieve connection string templates</param>
+            <returns>Connection string</returns>
+        </member>
+        <member name="M:magic.data.common.helpers.Executor.HasMultipleResultSets(magic.node.Node)">
+            <summary>
+            Returns true if invocation wants to retrieve multiple result sets.
+            </summary>
+            <param name="input">Node containing value trying to connect to a database</param>
+            <returns>True if caller wants to have multiple result sets returned</returns>
+        </member>
+        <member name="M:magic.data.common.helpers.Executor.BuildResultRow(System.Data.Common.DbDataReader,magic.node.Node,System.Int64@,System.Func{System.Object,System.Object})">
+            <summary>
+            Builds one result record and puts into specified parentNode from data reader
+            </summary>
+            <param name="reader">Data reader to retrieve fields from</param>
+            <param name="parentNode">Node where to return result</param>
+            <param name="max">Maximum number of records to return</param>
+            <param name="converter">Optional method to convert individual values</param>
+            <returns>True if we should continue building the next result, false otherwise</returns>
+        </member>
+        <member name="T:magic.data.common.helpers.Transaction">
+            <summary>
+            Wraps a database transaction, such that it automatically is rolled back when
+            instance is disposed, unless it has been previously rolled back, or committed.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.helpers.Transaction.#ctor(magic.signals.contracts.ISignaler,System.Data.Common.DbConnection)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="signaler">Signaler used to retrieve connection as stack object.</param>
+            <param name="connection">Database connection.</param>
+        </member>
+        <member name="P:magic.data.common.helpers.Transaction.Value">
+            <summary>
+            Returns actual DB transaction object.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.helpers.Transaction.Rollback">
+            <summary>
+            Explicitly rolls back the transaction.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.helpers.Transaction.Commit">
+            <summary>
+            Explicitly committing your transaction.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.helpers.Transaction.Dispose">
+            <summary>
+            Disposes the instance.
+            </summary>
+        </member>
+        <member name="T:magic.data.common.slots.CommitTransaction">
+            <summary>
+            [data.transaction.commit] slot, for committing a database transaction,
+            according to your configuration settings.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.CommitTransaction.#ctor(magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="settings">Configuration object.</param>
+        </member>
+        <member name="T:magic.data.common.slots.Connect">
+            <summary>
+            [data.connect] slot, for connecting to a database instance,
+            according to your configuration settings.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.Connect.#ctor(magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="settings">Configuration object.</param>
+        </member>
+        <member name="T:magic.data.common.slots.CreateTransaction">
+            <summary>
+            [data.transaction.create] slot, for creating a database transaction,
+            according to your configuration settings.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.CreateTransaction.#ctor(magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="settings">Configuration object.</param>
+        </member>
+        <member name="T:magic.data.common.slots.crud.Crud">
+            <summary>
+            [data.create] slot, for creating a record in your database,
+            according to your configuration settings.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.crud.Crud.#ctor(magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="settings">Configuration object.</param>
+        </member>
+        <member name="M:magic.data.common.slots.crud.Crud.Signal(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Implementation of your slot.
+            </summary>
+            <param name="signaler">Signaler used to raise the signal.</param>
+            <param name="input">Arguments to your slot.</param>
+        </member>
+        <member name="M:magic.data.common.slots.crud.Crud.SignalAsync(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Implementation of your slot.
+            </summary>
+            <param name="signaler">Signaler used to raise the signal.</param>
+            <param name="input">Arguments to your slot.</param>
+            <returns>An awaitable task.</returns>
+        </member>
+        <member name="T:magic.data.common.slots.Execute">
+            <summary>
+            [data.execute] slot, for executing some SQL towards a database,
+            according to your configuration settings.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.Execute.#ctor(magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="settings">Configuration for your application.</param>
+        </member>
+        <member name="T:magic.data.common.slots.RollbackTransaction">
+            <summary>
+            [data.transaction.rollback] slot, for rolling back a database transaction,
+            according to your configuration settings.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.RollbackTransaction.#ctor(magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="settings">Configuration object.</param>
+        </member>
+        <member name="T:magic.data.common.slots.Scalar">
+            <summary>
+            [data.scalar] slot, for executing some SQL towards a database and returning a scalar result,
+            according to your configuration settings.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.Scalar.#ctor(magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="settings">Configuration object.</param>
+        </member>
+        <member name="T:magic.data.common.slots.Select">
+            <summary>
+            [data.select] slot, for executing some SQL towards a database and returning a record result,
+            according to your configuration settings.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.Select.#ctor(magic.data.common.contracts.IDataSettings)">
+            <summary>
+            Creates a new instance of your type.
+            </summary>
+            <param name="settings">Configuration object.</param>
+        </member>
+        <member name="T:magic.data.common.slots.sql.Create">
+            <summary>
+            [sql.create] slot for creating an insert SQL, with parameters for you.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.sql.Create.Signal(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Implementation of your slot.
+            </summary>
+            <param name="signaler">Signaler used to raise the signal.</param>
+            <param name="input">Arguments to your slot.</param>
+        </member>
+        <member name="T:magic.data.common.slots.sql.Delete">
+            <summary>
+            [mssql.delete] slot for deleting a record in some table.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.sql.Delete.Signal(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Implementation of your slot.
+            </summary>
+            <param name="signaler">Signaler used to raise the signal.</param>
+            <param name="input">Arguments to your slot.</param>
+        </member>
+        <member name="T:magic.data.common.slots.sql.Read">
+            <summary>
+            [mssql.read] slot for selecting rows from some table.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.sql.Read.Signal(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Implementation of your slot.
+            </summary>
+            <param name="signaler">Signaler used to raise the signal.</param>
+            <param name="input">Arguments to your slot.</param>
+        </member>
+        <member name="T:magic.data.common.slots.sql.Update">
+            <summary>
+            [mssql.update] slot for updating a record in some table.
+            </summary>
+        </member>
+        <member name="M:magic.data.common.slots.sql.Update.Signal(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Implementation of your slot.
+            </summary>
+            <param name="signaler">Signaler used to raise the signal.</param>
+            <param name="input">Arguments to your slot.</param>
+        </member>
+    </members>
+</doc>

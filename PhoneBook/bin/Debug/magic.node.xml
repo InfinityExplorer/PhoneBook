@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>magic.node</name>
+    </assembly>
+    <members>
+        <member name="T:magic.node.Node">
+            <summary>
+            Graph class allowing you to declare tree structures as name/value/children collections.
+            Note, contrary to JSON, and similar formats, the name is not a "key", and can be duplicated
+            multiple times in the same "scope". In addition, each node can have both a value and children.
+            </summary>
+        </member>
+        <member name="M:magic.node.Node.#ctor">
+            <summary>
+            Creates an empty node, with a "" name, a null value, and zero children.
+            </summary>
+        </member>
+        <member name="M:magic.node.Node.#ctor(System.String)">
+            <summary>
+            Creates a new node with the specified name, null value, and zero children.
+            </summary>
+            <param name="name">Name for node.</param>
+        </member>
+        <member name="M:magic.node.Node.#ctor(System.String,System.Object)">
+            <summary>
+            Creates a new node with the given name, given value, and zero children.
+            </summary>
+            <param name="name">Name for node.</param>
+            <param name="value">Value for node.</param>
+        </member>
+        <member name="M:magic.node.Node.#ctor(System.String,System.Object,System.Collections.Generic.IEnumerable{magic.node.Node})">
+             <summary>
+             Creates a new node with the given name, value and children.
+            
+             Notice, the initial children will be untied from the current
+             parent, if any.
+             </summary>
+             <param name="name">Name for node.</param>
+             <param name="value">Value for node.</param>
+             <param name="children">Initial children collection for node.</param>
+        </member>
+        <member name="P:magic.node.Node.Name">
+            <summary>
+            Name of your node.
+            </summary>
+        </member>
+        <member name="P:magic.node.Node.Value">
+            <summary>
+            Value of your node.
+            </summary>
+        </member>
+        <member name="P:magic.node.Node.Children">
+            <summary>
+            Your node's children.
+            </summary>
+        </member>
+        <member name="P:magic.node.Node.Parent">
+             <summary>
+             Your node's parent node, if any.
+            
+             Will be null if the node has no parents and is a root node.
+             </summary>
+        </member>
+        <member name="P:magic.node.Node.Previous">
+            <summary>
+            Returns the "elder sibling" for your node, if any.
+            </summary>
+        </member>
+        <member name="P:magic.node.Node.Next">
+            <summary>
+            Returns the "younger sibling" for your node, if any.
+            </summary>
+        </member>
+        <member name="M:magic.node.Node.Add(magic.node.Node)">
+            <summary>
+            Appends a node into the node's children collection.
+            </summary>
+            <param name="value">Node to append. Notice, will be untied from any previous parents.</param>
+        </member>
+        <member name="M:magic.node.Node.Insert(System.Int32,magic.node.Node)">
+            <summary>
+            Inserts the node at the specified index in its children collection.
+            </summary>
+            <param name="index">Where to insert the node.</param>
+            <param name="value">Node to insert. Notice, will be untied from any previous parents.</param>
+        </member>
+        <member name="M:magic.node.Node.InsertBefore(magic.node.Node)">
+            <summary>
+            Inserts the node before the node's current position in its parent's children collection.
+            </summary>
+            <param name="value">Node to insert. Notice, will be untied from any previous parents.</param>
+        </member>
+        <member name="M:magic.node.Node.InsertAfter(magic.node.Node)">
+            <summary>
+            Inserts the node after the node's current position in its parent's children collection.
+            </summary>
+            <param name="value">Node to insert. Notice, will be untied from any previous parents.</param>
+        </member>
+        <member name="M:magic.node.Node.AddRange(System.Collections.Generic.IEnumerable{magic.node.Node})">
+            <summary>
+            Appends a range of nodes to the node's children collection.
+            </summary>
+            <param name="values">Nodes to append. Notice, all nodes will be untied from any previous parents.</param>
+        </member>
+        <member name="M:magic.node.Node.Remove(magic.node.Node)">
+            <summary>
+            Removes the specified node from the node's children collection.
+            </summary>
+            <param name="value">Removes the specified node from the Children collection of the current node.</param>
+        </member>
+        <member name="M:magic.node.Node.Clear">
+            <summary>
+            Removes all nodes from the node's children collection.
+            </summary>
+        </member>
+        <member name="M:magic.node.Node.Clone">
+            <summary>
+            Clones the given node, except its parent or ancestor node(s),
+            and returns the result.
+            </summary>
+            <returns>A clone of the current node. Notice, values are also cloned,
+            but only if they implement ICloneable.</returns>
+        </member>
+        <member name="M:magic.node.Node.UnTie">
+            <summary>
+            Removes the node from its parent's children collection.
+            </summary>
+        </member>
+        <member name="M:magic.node.Node.Sort(System.Comparison{magic.node.Node})">
+            <summary>
+            Sorts the node given the specified functor.
+            </summary>
+            <param name="functor">Comparison functor</param>
+        </member>
+        <member name="M:magic.node.Node.Max(System.Int32)">
+            <summary>
+            Removes all nodes except the first max number of nodes.
+            </summary>
+            <param name="max">Maximum number of nodes to keep</param>
+        </member>
+    </members>
+</doc>

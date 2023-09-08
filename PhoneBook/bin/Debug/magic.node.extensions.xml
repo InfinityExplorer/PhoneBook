@@ -1,0 +1,867 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>magic.node.extensions</name>
+    </assembly>
+    <members>
+        <member name="T:magic.node.contracts.IFileService">
+            <summary>
+            Contract for handling files in Magic.
+            </summary>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.Load(System.String)">
+            <summary>
+            Loads a text file, and returns its content.
+            </summary>
+            <param name="path">Path of file to load.</param>
+            <returns>Text content of file.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.LoadAsync(System.String)">
+            <summary>
+            Loads a file async, and returns its content.
+            </summary>
+            <param name="path">Path of file to load.</param>
+            <returns>Text content of file.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.LoadRecursively(System.String,System.String)">
+            <summary>
+            Loads all files recursively, and returns filenames and content of said files.
+            </summary>
+            <param name="folder">Root folder of where to look for files.</param>
+            <param name="extension">Extension files must end with to be considered.</param>
+            <returns>Filename and content of files.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.LoadRecursivelyAsync(System.String,System.String)">
+            <summary>
+            Loads all files recursively, and returns filenames and content of said files.
+            </summary>
+            <param name="folder">Root folder of where to look for files.</param>
+            <param name="extension">Extension files must end with to be considered.</param>
+            <returns>Filename and content of files.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.LoadBinary(System.String)">
+            <summary>
+            Loads a binary file, and returns its content.
+            </summary>
+            <param name="path">Path of file to load.</param>
+            <returns>Binary content of file.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.LoadBinaryAsync(System.String)">
+            <summary>
+            Loads a binary file async, and returns its content.
+            </summary>
+            <param name="path">Path of file to load.</param>
+            <returns>Binary content of file.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.Save(System.String,System.String)">
+            <summary>
+            Saves the specified content into a file at the specified path.
+            </summary>
+            <param name="path">Path of file to save.</param>
+            <param name="content">Content of file.</param>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.Save(System.String,System.Byte[])">
+            <summary>
+            Saves the specified content into a file at the specified path.
+            </summary>
+            <param name="path">Path of file to save.</param>
+            <param name="content">Content of file.</param>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.SaveAsync(System.String,System.String)">
+            <summary>
+            Saves the specified content into a file at the specified path async.
+            </summary>
+            <param name="path">Path of file to save.</param>
+            <param name="content">Content of file.</param>
+            <returns>Awaitable task</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.SaveAsync(System.String,System.Byte[])">
+            <summary>
+            Saves the specified content into a file at the specified path async.
+            </summary>
+            <param name="path">Path of file to save.</param>
+            <param name="content">Content of file.</param>
+            <returns>Awaitable task</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.ListFiles(System.String,System.String)">
+            <summary>
+            Returns all files found in the specified folder.
+            </summary>
+            <param name="folder">Folder to query for files.</param>
+            <param name="extension">Optional extension files must have to be returned.</param>
+            <returns>A list of absolute paths to all files found within specified folder.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.ListFilesAsync(System.String,System.String)">
+            <summary>
+            Returns all files found in the specified folder.
+            </summary>
+            <param name="folder">Folder to query for files.</param>
+            <param name="extension">Optional extension files must have to be returned.</param>
+            <returns>A list of absolute paths to all files found within specified folder.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.ListFilesRecursively(System.String,System.String)">
+            <summary>
+            Returns all files found in the specified folder recursively.
+            </summary>
+            <param name="folder">Folder to query for files.</param>
+            <param name="extension">Optional extension files must have to be returned.</param>
+            <returns>A list of absolute paths to all files found within specified folder.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFileService.ListFilesRecursivelyAsync(System.String,System.String)">
+            <summary>
+            Returns all files found in the specified folder recursively.
+            </summary>
+            <param name="folder">Folder to query for files.</param>
+            <param name="extension">Optional extension files must have to be returned.</param>
+            <returns>A list of absolute paths to all files found within specified folder.</returns>
+        </member>
+        <member name="T:magic.node.contracts.IFolderService">
+            <summary>
+            Contract for handling folders in Magic.
+            </summary>
+        </member>
+        <member name="M:magic.node.contracts.IFolderService.Create(System.String)">
+            <summary>
+            Creates a new folder with hte specified path.
+            </summary>
+            <param name="path">Path to folder.</param>
+        </member>
+        <member name="M:magic.node.contracts.IFolderService.CreateAsync(System.String)">
+            <summary>
+            Creates a new folder with hte specified path.
+            </summary>
+            <param name="path">Path to folder.</param>
+            <returns>Awaitable task</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFolderService.ListFolders(System.String)">
+            <summary>
+            Lists all folders within the specified folder.
+            </summary>
+            <param name="folder">Folder to query for folders.</param>
+            <returns>Absolute paths to list of folders the specified folder contains</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFolderService.ListFoldersAsync(System.String)">
+            <summary>
+            Lists all folders within the specified folder.
+            </summary>
+            <param name="folder">Folder to query for folders.</param>
+            <returns>Absolute paths to list of folders the specified folder contains</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFolderService.ListFoldersRecursively(System.String)">
+            <summary>
+            Lists all folders within the specified folder recursively.
+            </summary>
+            <param name="folder">Folder to query for folders.</param>
+            <returns>Absolute paths to list of folders the specified folder contains</returns>
+        </member>
+        <member name="M:magic.node.contracts.IFolderService.ListFoldersRecursivelyAsync(System.String)">
+            <summary>
+            Lists all folders within the specified folder recursively.
+            </summary>
+            <param name="folder">Folder to query for folders.</param>
+            <returns>Absolute paths to list of folders the specified folder contains</returns>
+        </member>
+        <member name="T:magic.node.contracts.IIOService">
+            <summary>
+            Common contract for handling files and folders in Magic.
+            </summary>
+        </member>
+        <member name="M:magic.node.contracts.IIOService.Exists(System.String)">
+            <summary>
+            Returns true if file or folder exists.
+            </summary>
+            <param name="path">Absolute path to file</param>
+            <returns>True if file exists</returns>
+        </member>
+        <member name="M:magic.node.contracts.IIOService.ExistsAsync(System.String)">
+            <summary>
+            Returns true if file or folder exists.
+            </summary>
+            <param name="path">Absolute path to file</param>
+            <returns>True if file exists</returns>
+        </member>
+        <member name="M:magic.node.contracts.IIOService.Delete(System.String)">
+            <summary>
+            Deletes specified file or folder.
+            </summary>
+            <param name="path">Absolute path to file to delete</param>
+        </member>
+        <member name="M:magic.node.contracts.IIOService.DeleteAsync(System.String)">
+            <summary>
+            Deletes specified file or folder.
+            </summary>
+            <param name="path">Absolute path to file to delete</param>
+            <returns>Awaitable task</returns>
+        </member>
+        <member name="M:magic.node.contracts.IIOService.Copy(System.String,System.String)">
+            <summary>
+            Copies one file or folder to some destination.
+            </summary>
+            <param name="source">File to copy.</param>
+            <param name="destination">Path to copy of file.</param>
+        </member>
+        <member name="M:magic.node.contracts.IIOService.CopyAsync(System.String,System.String)">
+            <summary>
+            Copies one file or folder async to some destination.
+            </summary>
+            <param name="source">Path of file to copy</param>
+            <param name="destination">Path to copy of file.</param>
+            <returns>Awaitable task</returns>
+        </member>
+        <member name="M:magic.node.contracts.IIOService.Move(System.String,System.String)">
+            <summary>
+            Moves a file or folder from source path to destination path.
+            </summary>
+            <param name="source">Path of file to move.</param>
+            <param name="destination">New path for file.</param>
+        </member>
+        <member name="M:magic.node.contracts.IIOService.MoveAsync(System.String,System.String)">
+            <summary>
+            Moves a file or folder from source path to destination path async.
+            </summary>
+            <param name="source">Path of file to move.</param>
+            <param name="destination">New path for file.</param>
+            <returns>Awaitable task</returns>
+        </member>
+        <member name="T:magic.node.contracts.IMagicConfiguration">
+            <summary>
+            Interface wrapping configuration settings for Magic.
+            </summary>
+        </member>
+        <member name="P:magic.node.contracts.IMagicConfiguration.Item(System.String)">
+            <summary>
+            Returns the specified key as a string value.
+            </summary>
+            <value>The string representation value of the specified key.</value>
+        </member>
+        <member name="M:magic.node.contracts.IMagicConfiguration.GetSection(System.String)">
+            <summary>
+            Returns the specified section as a key/value pair.
+            </summary>
+            <param name="key">Key to return.</param>
+            <returns>Key/value pair of sepcific configuration section.</returns>
+        </member>
+        <member name="T:magic.node.contracts.IRootResolver">
+            <summary>
+            Contract for resolving root folder/namespace on disc for all IO operations.
+            </summary>
+        </member>
+        <member name="P:magic.node.contracts.IRootResolver.DynamicFiles">
+            <summary>
+            Returns the root folder or root namespace for all dynamic files, implying Hyperlambda files, endpoint files,
+            and other files persisted into the Magic backend somehow.
+            
+            Typically this is the root folder for all your dynamic files, the default being "~/files/"
+            </summary>
+        </member>
+        <member name="P:magic.node.contracts.IRootResolver.RootFolder">
+            <summary>
+            Returns the root folder or root namespace for all IO operations in Magic.
+            
+            Typically this is the root folder where your backend.dll file physically exists on disc.
+            </summary>
+        </member>
+        <member name="M:magic.node.contracts.IRootResolver.RelativePath(System.String)">
+            <summary>
+            Returns the relative path given the absolute path as an argument.
+            
+            The relative path is a path where the DynamicFiles parts of it has been removed.
+            </summary>
+            <param name="path">Absolute path of file or folder.</param>
+            <returns>Relative file or folder path.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IRootResolver.AbsolutePath(System.String)">
+            <summary>
+            Returns the absolute path given the relative path as an argument.
+            
+            The absolute path is a relative path with the DynamicFiles property prepended to it.
+            </summary>
+            <param name="path">Relative path of file or folder.</param>
+            <returns>Absolute file or folder path.</returns>
+        </member>
+        <member name="T:magic.node.contracts.IServiceCreator`1">
+            <summary>
+            Common interface for creating services dynamically without having to resort to
+            the service locator anti-pattern.
+            </summary>
+        </member>
+        <member name="M:magic.node.contracts.IServiceCreator`1.Create">
+            <summary>
+            Creates a new service for you of the specified type.
+            </summary>
+            <returns>The newly created service.</returns>
+        </member>
+        <member name="T:magic.node.contracts.IStreamService">
+            <summary>
+            Contract for handling streams in Magic.
+            </summary>
+        </member>
+        <member name="M:magic.node.contracts.IStreamService.OpenFile(System.String)">
+            <summary>
+            Returns a stream wrapping the specified filename.
+            </summary>
+            <param name="path">Absolute path to file.</param>
+            <returns>Open Stream object.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IStreamService.OpenFileAsync(System.String)">
+            <summary>
+            Returns a stream wrapping the specified filename async.
+            </summary>
+            <param name="path">Absolute path to file.</param>
+            <returns>Open Stream object.</returns>
+        </member>
+        <member name="M:magic.node.contracts.IStreamService.SaveFile(System.IO.Stream,System.String,System.Boolean)">
+            <summary>
+            Saves the specified stream to the specified filename.
+            </summary>
+            <param name="stream">Stream wrapping content to save.</param>
+            <param name="path">Absolute path to filename to save stream's content to.</param>
+            <param name="overwrite">If true will overwrite existing file at specified path.</param>
+        </member>
+        <member name="M:magic.node.contracts.IStreamService.SaveFileAsync(System.IO.Stream,System.String,System.Boolean)">
+            <summary>
+            Saves the specified stream to the specified filename async.
+            </summary>
+            <param name="stream">Stream wrapping content to save.</param>
+            <param name="path">Absolute path to filename to save stream's content to.</param>
+            <param name="overwrite">If true will overwrite existing file at specified path.</param>
+            <returns>Awaitable task.</returns>
+        </member>
+        <member name="T:magic.node.extensions.Converter">
+            <summary>
+            Helper class for converting from string representations to Hyperlambda declaration objects, and vice versa.
+            </summary>
+        </member>
+        <member name="P:magic.node.extensions.Converter.DefaultTimeZone">
+            <summary>
+            If true all conversions to date objects will assume date is UTC unless timezone is explicitly specified,
+            and all conversions to string from date will return UTC date. Defaults to true.
+            
+            If false will not assume timezone for dates and use the system settings when parsing dates, and while
+            converting from dates to string use local timezone.
+            </summary>
+            <value>Whether or not Magic defaults all dates to UTC or not</value>
+        </member>
+        <member name="M:magic.node.extensions.Converter.GetTypes">
+            <summary>
+            Returns all Hyperlambda types Magic supports.
+            </summary>
+            <returns>All Hyperlambda types supported by current backend</returns>
+        </member>
+        <member name="M:magic.node.extensions.Converter.ToObject(System.Object,System.String)">
+            <summary>
+            Converts the given string value to the type declaration specified as the type parameter.
+            </summary>
+            <param name="value">Object value.</param>
+            <param name="type">Type to convert object into</param>
+            <returns>Converted object.</returns>
+        </member>
+        <member name="M:magic.node.extensions.Converter.ToString(System.Object)">
+            <summary>
+            Converts value of object into a string, intended to be serialized into Hyperlambda format,
+            and returns its Hyperlambda type declaration, and the string representation of the object to caller.
+            </summary>
+            <param name="value">Value to convert.</param>
+            <returns>Hyperlambda type declaration, and string representation of object.</returns>
+        </member>
+        <member name="M:magic.node.extensions.Converter.AddConverter(System.Type,System.String,System.Func{System.Object,System.ValueTuple{System.String,System.String}},System.Func{System.Object,System.Object})">
+            <summary>
+            Adds a custom type to the converter, allowing you to support your own custom types
+            in Hyperlambda.
+            </summary>
+            <param name="clrType">The CLR type you wish to support</param>
+            <param name="hyperlambdaTypename">Its Hyperlambda type name</param>
+            <param name="toStringFunctor">Functor expected to create a string representation of an instance of your type.</param>
+            <param name="toObjectFunctor">Functor expected to create an object of your type, given its Hyperlambda string representation.</param>
+        </member>
+        <member name="T:magic.node.extensions.Expression">
+            <summary>
+            Expression class for creating lambda expressions, referencing nodes in your Node lambda objects.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.Expression.#ctor(System.String)">
+            <summary>
+            Creates a new expression from its string representation.
+            </summary>
+            <param name="expression">String representation of expression to create.</param>
+        </member>
+        <member name="P:magic.node.extensions.Expression.Value">
+            <summary>
+            Returns the string representation of your expression.
+            </summary>
+        </member>
+        <member name="P:magic.node.extensions.Expression.Iterators">
+            <summary>
+            Convenience method in case you want to access iterators individually.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.Expression.Evaluate(magic.node.Node)">
+            <summary>
+            Evaluates your expression from the given identity node.
+            </summary>
+            <param name="identity">Identity node from which your expression is evaluated.</param>
+            <returns>The result of the evaluation.</returns>
+        </member>
+        <member name="M:magic.node.extensions.Expression.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:magic.node.extensions.Expression.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:magic.node.extensions.Expression.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:magic.node.extensions.hyperlambda.helpers.HyperlambdaTokenizer">
+            <summary>
+            Tokenizer for Hyperlambda allowing you to easily tokenize a snippet of Hyperlambda.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.helpers.HyperlambdaTokenizer.#ctor(System.IO.Stream)">
+            <summary>
+            Creates an instance of your object, and reads all tokens from the specified stream
+            </summary>
+            <param name="stream">Stream object to read tokens from</param>
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.helpers.HyperlambdaTokenizer.Tokens">
+            <summary>
+            Returns all tokens to the caller.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:magic.node.extensions.hyperlambda.helpers.TokenType">
+            <summary>
+            Token type declaring which token type the token actually is.
+            </summary>
+        </member>
+        <member name="F:magic.node.extensions.hyperlambda.helpers.TokenType.CRLF">
+            <summary>
+            CR/LF sequence type of token.
+            </summary>
+        </member>
+        <member name="F:magic.node.extensions.hyperlambda.helpers.TokenType.MultiLineComment">
+            <summary>
+            Comment spanning multiple lines.
+            </summary>
+        </member>
+        <member name="F:magic.node.extensions.hyperlambda.helpers.TokenType.Name">
+            <summary>
+            Name of node.
+            </summary>
+        </member>
+        <member name="F:magic.node.extensions.hyperlambda.helpers.TokenType.Separator">
+            <summary>
+            Separator tokenm (:)
+            </summary>
+        </member>
+        <member name="F:magic.node.extensions.hyperlambda.helpers.TokenType.SingleLineComment">
+            <summary>
+            Comment spanning only one line.
+            </summary>
+        </member>
+        <member name="F:magic.node.extensions.hyperlambda.helpers.TokenType.Space">
+            <summary>
+            Space type of token, declaring scope of upcoming node.
+            </summary>
+        </member>
+        <member name="F:magic.node.extensions.hyperlambda.helpers.TokenType.Type">
+            <summary>
+            Type declaration type of token.
+            </summary>
+        </member>
+        <member name="F:magic.node.extensions.hyperlambda.helpers.TokenType.Value">
+            <summary>
+            Value of node type of token.
+            </summary>
+        </member>
+        <member name="T:magic.node.extensions.hyperlambda.helpers.Token">
+            <summary>
+            A single Hyperlambda token.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.helpers.Token.#ctor(magic.node.extensions.hyperlambda.helpers.TokenType,System.String)">
+            <summary>
+            Creates an instance of your token.
+            </summary>
+            <param name="type">Type of token</param>
+            <param name="value">String representation of token</param>
+        </member>
+        <member name="P:magic.node.extensions.hyperlambda.helpers.Token.Value">
+            <summary>
+            Returns the string representation value of your token.
+            </summary>
+            <value>Token value</value>
+        </member>
+        <member name="P:magic.node.extensions.hyperlambda.helpers.Token.Type">
+            <summary>
+            Returns the token type.
+            </summary>
+            <value>Token type</value>
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.helpers.Token.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.helpers.Token.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.helpers.Token.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:magic.node.extensions.hyperlambda.HyperlambdaGenerator">
+            <summary>
+            Class that allows you to create Hyperlambda from a Lambda/Node-list.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.HyperlambdaGenerator.GetHyperlambda(System.Collections.Generic.IEnumerable{magic.node.Node},System.Boolean)">
+            <summary>
+            Returns Hyperlambda for the specified collection of nodes.
+            </summary>
+            <param name="nodes">Nodes to create Hyperlambda from</param>
+            <param name="comments">Whether or not not keep comments or not</param>
+            <returns>Hyperlambda representing the specified list of nodes</returns>
+        </member>
+        <member name="T:magic.node.extensions.hyperlambda.HyperlambdaParser">
+            <summary>
+            Class that helps you parse Hyperlambda and create a Lambda/node from it.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.HyperlambdaParser.Parse(System.String,System.Boolean)">
+            <summary>
+            Creates a Lambda/node from the specified string Hyperlambda.
+            </summary>
+            <param name="hyperlambda">Hyperlambda to parse</param>
+            <param name="comments">Whether or not to include comments semantically in the resulting lambda or not</param>
+            <returns>The node representation of the specified Hyperlambda</returns>
+        </member>
+        <member name="M:magic.node.extensions.hyperlambda.HyperlambdaParser.Parse(System.IO.Stream,System.Boolean)">
+            <summary>
+            Creates a Lambda/node from the specified stream assumed to contain Hyperlambda.
+            </summary>
+            <param name="stream">Stream containing Hyperlambda to parse</param>
+            <param name="comments">Whether or not to include comments semantically in the resulting lambda or not</param>
+            <returns>The node representation of the specified Hyperlambda</returns>
+        </member>
+        <member name="T:magic.node.extensions.HyperlambdaException">
+            <summary>
+            Exception thrown when there is a Hyperlambda error occurring.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.#ctor">
+            <summary>
+            Creates a new instance of exception.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.#ctor(System.String)">
+            <summary>
+            Creates a new exception.
+            </summary>
+            <param name="message">Friendly message, that might or might not be returned back to client.</param>
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new exception.
+            </summary>
+            <param name="message">Friendly message, that might or might not be returned back to client.</param>
+            <param name="innerException">Inner exception</param>
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.#ctor(System.String,System.Boolean,System.Int32)">
+            <summary>
+            Creates a new exception.
+            </summary>
+            <param name="message">Exception error text.</param>
+            <param name="isPublic">Whether or not exception message should propagate to client in release builds.</param>
+            <param name="status">Status code returned to client.</param>
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.#ctor(System.String,System.Boolean,System.Int32,System.String)">
+            <summary>
+            Creates a new exception.
+            </summary>
+            <param name="message">Exception error text.</param>
+            <param name="isPublic">Whether or not exception message should propagate to client in release builds.</param>
+            <param name="status">Status code returned to client.</param>
+            <param name="fieldName">Field that triggered exception, if any.</param>
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.#ctor(System.String,System.Boolean,System.Int32,System.String,System.String)">
+            <summary>
+            Creates a new exception.
+            </summary>
+            <param name="message">Exception error text.</param>
+            <param name="isPublic">Whether or not exception message should propagate to client in release builds.</param>
+            <param name="status">Status code returned to client.</param>
+            <param name="fieldName">Field that triggered exception, if any.</param>
+            <param name="stackTrace">Hyperlambda stack trace.</param>
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.#ctor(System.String,System.Boolean,System.Int32,System.String,System.Exception)">
+            <summary>
+            Creates a new exception.
+            </summary>
+            <param name="message">Exception error text.</param>
+            <param name="isPublic">Whether or not exception message should propagate to client in release builds.</param>
+            <param name="status">Status code returned to client.</param>
+            <param name="fieldName">Field that triggered exception, if any.</param>
+            <param name="innerException">Inner exception</param>
+        </member>
+        <member name="P:magic.node.extensions.HyperlambdaException.IsPublic">
+            <summary>
+            Whether ot not exception will propagate to client in release builds.
+            </summary>
+            <value>True if exception is returned to the client.</value>
+        </member>
+        <member name="P:magic.node.extensions.HyperlambdaException.Status">
+            <summary>
+            Status code to return to client.
+            </summary>
+            <value>HTTP status code to return to client.</value>
+        </member>
+        <member name="P:magic.node.extensions.HyperlambdaException.FieldName">
+            <summary>
+            Name of field that triggered exception, if any.
+            </summary>
+            <value>Field that triggered exception.</value>
+        </member>
+        <member name="P:magic.node.extensions.HyperlambdaException.StackTrace">
+            <inheritdoc />
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.extensions.HyperlambdaException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:magic.node.extensions.Iterator">
+            <summary>
+            A single iterator component for an expression.
+            </summary>
+        </member>
+        <member name="P:magic.node.extensions.Iterator.Value">
+            <summary>
+            Returns the string representation of the iterator.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.Iterator.Evaluate(magic.node.Node,System.Collections.Generic.IEnumerable{magic.node.Node})">
+            <summary>
+            Evaluates the iterator from the given identity node, with the given input,
+            resulting in a new node set being returned by the evaluation.
+            </summary>
+            <param name="identity">Identity node from which the original expression was evaluated from.</param>
+            <param name="input">A collection of nodes passed in from the result of the evaluation of the previous iterator.</param>
+            <returns>An enumerable collection of Nodes, from the result of evaluating the iterator.</returns>
+        </member>
+        <member name="M:magic.node.extensions.Iterator.AddStaticIterator(System.String,System.Func{magic.node.Node,System.Collections.Generic.IEnumerable{magic.node.Node},System.Collections.Generic.IEnumerable{magic.node.Node}})">
+            <summary>
+            Allows you to inject a non-parametrized iterator into the available
+            iterators.
+            </summary>
+            <param name="iteratorValue">Fully qualified name, to match your functor.</param>
+            <param name="functor">Functor to execute as your iterator name is matched.</param>
+        </member>
+        <member name="M:magic.node.extensions.Iterator.AddDynamicIterator(System.Char,System.Func{System.String,System.Func{magic.node.Node,System.Collections.Generic.IEnumerable{magic.node.Node},System.Collections.Generic.IEnumerable{magic.node.Node}}})">
+            <summary>
+            Allows you to add a parametrized iterator into the available
+            iterators.
+            </summary>
+            <param name="iteratorFirstCharacter">First character your iterator must start with.</param>
+            <param name="createFunctor">Function that is responsible for creating your actual iterator.</param>
+        </member>
+        <member name="M:magic.node.extensions.Iterator.ToString">
+            <summary>
+            Returns a string representation of your Iterator.
+            </summary>
+            <returns>A string representation of your iterator.</returns>
+        </member>
+        <member name="M:magic.node.extensions.Iterator.GetHashCode">
+            <summary>
+            Returns the hash code for your instance.
+            </summary>
+            <returns>Hash code, useful for for instance creating keys for dictionaries, etc.</returns>
+        </member>
+        <member name="M:magic.node.extensions.Iterator.Equals(System.Object)">
+            <summary>
+            Comparison method, comparing the current instance to some other instance.
+            </summary>
+            <param name="obj">Right hand side to compare instance with.</param>
+            <returns>True if instances are logically similar.</returns>
+        </member>
+        <member name="T:magic.node.extensions.NodeExtensions">
+            <summary>
+            Extension class extending the Node class with convenience methods.
+            </summary>
+        </member>
+        <member name="M:magic.node.extensions.NodeExtensions.Evaluate(magic.node.Node)">
+             <summary>
+             Evaluates the expression found in the node's value, and returns
+             the results of the evaluation.
+            
+             Notice, if the value of the node is not an expression, the method
+             will throw an exception.
+             </summary>
+             <returns>Result of evaluation.</returns>
+        </member>
+        <member name="M:magic.node.extensions.NodeExtensions.Get``1(magic.node.Node)">
+            <summary>
+            Returns the value of the node as typeof(T). This method will not
+            evaluate any expressions, but rather return expressions as is,
+            without evaluating expressions in any ways.
+            </summary>
+            <typeparam name="T">Type to return value as, which might imply
+            conversion if value is not already of the specified type.</typeparam>
+            <returns>The node's value as an object of type T</returns>
+        </member>
+        <member name="M:magic.node.extensions.NodeExtensions.GetEx``1(magic.node.Node)">
+             <summary>
+             Will return value of node as typeof(T), converting if necessary,
+             and also evaluating any expressions found recursively, until a
+             non-expression value is found.
+            
+             Notice, if expressions are evaluated, and the result of evaluating
+             the expression finds multiple results, an exception will be thrown.
+             </summary>
+             <typeparam name="T">Type to return value or evaluated expression's
+             value as.</typeparam>
+             <param name="node">Node to retrieve value or evaluated expression
+             from.</param>
+             <returns>Value of node, or value of its evaluated expression.</returns>
+        </member>
+        <member name="M:magic.node.extensions.NodeExtensions.ToHyperlambda(magic.node.Node)">
+            <summary>
+            Transforms the specified node into its Hyperlambda syntax.
+            </summary>
+            <param name="node">Nod to transform into Hyperlambda</param>
+            <returns></returns>
+        </member>
+        <member name="T:magic.node.services.FileService">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.Copy(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.CopyAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.Move(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.MoveAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.Delete(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.DeleteAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.Exists(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.ExistsAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.ListFiles(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.ListFilesAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.ListFilesRecursively(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.ListFilesRecursivelyAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.Load(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.LoadAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.LoadRecursively(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.LoadRecursivelyAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.LoadBinary(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.LoadBinaryAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.Save(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.Save(System.String,System.Byte[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.SaveAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FileService.SaveAsync(System.String,System.Byte[])">
+            <inheritdoc/>
+        </member>
+        <member name="T:magic.node.services.FolderService">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.Create(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.CreateAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.Delete(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.DeleteAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.Exists(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.ExistsAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.Move(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.MoveAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.Copy(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.CopyAsync(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.ListFolders(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.ListFoldersAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.ListFoldersRecursively(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.FolderService.ListFoldersRecursivelyAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:magic.node.services.StreamService">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.StreamService.#ctor(magic.node.contracts.IFileService)">
+            <summary>
+            Creates an instance of your type.
+            </summary>
+            <param name="fileService">Needed to check if file exists or not.</param>
+        </member>
+        <member name="M:magic.node.services.StreamService.OpenFile(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.StreamService.OpenFileAsync(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.StreamService.SaveFile(System.IO.Stream,System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:magic.node.services.StreamService.SaveFileAsync(System.IO.Stream,System.String,System.Boolean)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

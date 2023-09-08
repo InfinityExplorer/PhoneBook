@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>magic.signals.contracts</name>
+    </assembly>
+    <members>
+        <member name="T:magic.signals.contracts.ISignaler">
+            <summary>
+            Interface allowing you to signal slots, passing ia Node as a generic argument.
+            </summary>
+        </member>
+        <member name="M:magic.signals.contracts.ISignaler.Signal(System.String,magic.node.Node,System.Action)">
+            <summary>
+            Signals the slot with the name from the input node's Name property.
+            </summary>
+            <param name="name">Name of slot to invoke.</param>
+            <param name="input">Input arguments to slot.</param>
+            <param name="functor">Function to execute after execution is done.</param>
+        </member>
+        <member name="M:magic.signals.contracts.ISignaler.SignalAsync(System.String,magic.node.Node,System.Action)">
+            <summary>
+            Signals the slot with the name from the input node's Name property async.
+            </summary>
+            <param name="name">Name of slot to invoke.</param>
+            <param name="input">Input arguments to slot.</param>
+            <param name="functor">Function to execute after execution is done.</param>
+            <returns>Awaitable task.</returns>
+        </member>
+        <member name="M:magic.signals.contracts.ISignaler.Scope(System.String,System.Object,System.Action)">
+            <summary>
+            Adds the given stack value unto the stack with the given name,
+            and invokes functor, making sure the object is popped from the stack
+            after the functor has been evaluated.
+            </summary>
+            <param name="name">Name of stack object, allowing you to retrieve it
+            from recursively invoked slots.</param>
+            <param name="value">Value of stack object. Use Peek to retrieve the
+            object in recursively invoked slots.</param>
+            <param name="functor">Callback evaluated while object is on the
+            stack.</param>
+        </member>
+        <member name="M:magic.signals.contracts.ISignaler.ScopeAsync(System.String,System.Object,System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Adds the given stack value unto the stack with the given name,
+            and invokes functor, making sure the object is popped from the stack
+            after the functor has been evaluated.
+            </summary>
+            <param name="name">Name of stack object, allowing you to retrieve
+            it from recursively invoked slots.</param>
+            <param name="value">Value of stack object. Use Peek to retrieve the
+            object in recursively invoked slots.</param>
+            <param name="functor">Callback evaluated while object is on the
+            stack.</param>
+            <returns>Awaitable task.</returns>
+        </member>
+        <member name="M:magic.signals.contracts.ISignaler.Peek``1(System.String)">
+            <summary>
+            Returns the last stack object previously pushed with the specified
+            name.
+            </summary>
+            <typeparam name="T">Type to return object as.</typeparam>
+            <param name="name">Name of stack object to retrieve.</param>
+            <returns>Your stack object.</returns>
+        </member>
+        <member name="T:magic.signals.contracts.ISignalsProvider">
+            <summary>
+            Interface responsible for feeding your signaler with slots,
+            implying string to type mappings.
+            </summary>
+        </member>
+        <member name="M:magic.signals.contracts.ISignalsProvider.GetSlot(System.String)">
+            <summary>
+            Returns a type from the specified name.
+            </summary>
+            <param name="name">Slot name for the type to return.</param>
+            <returns>The underlaying type that maps to your string.</returns>
+        </member>
+        <member name="P:magic.signals.contracts.ISignalsProvider.Keys">
+            <summary>
+            Returns all keys, implying names registered for your signals
+            implementation.
+            </summary>
+        </member>
+        <member name="T:magic.signals.contracts.ISlot">
+             <summary>
+             Interface you need to implement on classes you want to be able to
+             dynamically invoke as signals.
+            
+             Notice, there exists an async version of this interface, which you can
+             implement for slots requiring async behaviour.
+             </summary>
+        </member>
+        <member name="M:magic.signals.contracts.ISlot.Signal(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Invoked whenever the specified signal for your slot is signaled.
+            </summary>
+            <param name="signaler">The signaler that invoked your slot.</param>
+            <param name="input">Input arguments to your slot.</param>
+        </member>
+        <member name="T:magic.signals.contracts.ISlotAsync">
+             <summary>
+             Interface you need to implement on classes you want to be able to
+             dynamically invoke as signals.
+            
+             Notice, there exists a synchronous version of this interface for signals
+             you don't want to implement as async. You should as a general rule
+             implement also the sync equivalent of this interface, if you implement
+             this interface, to allow consumers to also invoke your slot synchronously.
+             </summary>
+        </member>
+        <member name="M:magic.signals.contracts.ISlotAsync.SignalAsync(magic.signals.contracts.ISignaler,magic.node.Node)">
+            <summary>
+            Invoked whenever the specified signal for your slot is signaled.
+            </summary>
+            <param name="signaler">The signaler that invoked your slot.</param>
+            <param name="input">Input arguments to your slot.</param>
+            <returns>Awaitable task.</returns>
+        </member>
+        <member name="T:magic.signals.contracts.SlotAttribute">
+             <summary>
+             Attribute class you need to mark your signals with, to associate your
+             slot with a string/name.
+            
+             Its name can later be used to invoke your slot using the ISignaler.
+             </summary>
+        </member>
+        <member name="P:magic.signals.contracts.SlotAttribute.Name">
+            <summary>
+            Name of slot.
+            </summary>
+        </member>
+    </members>
+</doc>
